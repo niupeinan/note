@@ -1,0 +1,2 @@
+路径是中文时的处理方法：
+img=cv2.imdecode(np.fromfile(filepath,dtype=np.uint8),0)

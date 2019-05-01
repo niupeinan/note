@@ -1,0 +1,6 @@
+1..用pycharm打开文件会隐藏行和列：
+解决方法:pd.set_option('display.max_columns',2)
+	pd.set_option('display.max_rows',2)
+2.会有打不开文件的报错：
+（1）engine改成python，pd.read_csv(path,engine='python')
+（2）文件是中文，解码：pd.read_csv(path,encoding='utf-8')
