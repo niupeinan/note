@@ -332,32 +332,41 @@ vue.prototype.abc=function("aa:"bb"){
 如果创建组件时使用驼峰命名，调用组件的时候需要将驼峰改为横线-写法
 ```
 
-## Vuex:
+### Vuex
 
-```vue
-状态管理模式：
-new Vue({
-  // state
-  data () {
-    return {
-      count: 0
-    }
-  },
-  // view
-  template: `
-    <div>{{ count }}</div>
-  `,
-  // actions
-  methods: {
-    increment () {
-      this.count++
-    }
-  }
+- #### 什么是vuex？
+
+  - 它是应用程序开发的状态管理模式；
+  - 它采用集中式存储管理应用的所有组件的状态；
+  - 并以相应的规则保证状态以一种可预测的方式变化。
+
+- #### 什么是状态管理模式？
+
+  - state:驱动应用的数据源。
+  - view:以声明的方式将state映射到视图。、
+  - actions:响应在view上的用户输入导致的状态变化。
+
+### Vuex的小实例：
+
+```js
+1. 下载vuex的插件，使用命令npm install vuex --save;
+2. 在main.js中引入插件，import Vuex from 'vuex',并且注册Vue.use(vuex),并且将它挂载到dom里面。
+3. 使用vuex。store是仓库，用来存放关于vuex的数据源以及它的各种方法。
+const store = new Vuex.Store({    // 是对象的形式
+    state: {
+        count: 0,    //数据源
+    }，
+    mutations: {
+        increase(state) {
+			state.count++
+    	}
+	}
 })
-state，驱动应用的数据源；
-view，以声明方式将 state 映射到视图；
-actions，响应在 view 上的用户输入导致的状态变化。
+4.在全局获取状态对象可使用this.$store.state.count;
+5.在全局方法触发状态变更可以使用this.$store.commit('increase',v);v是可以传入的数据。
 ```
+
+### 
 
 ## element:
 
