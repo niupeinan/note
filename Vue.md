@@ -1,142 +1,150 @@
-# VUE:
+## VUE简介:
 
-缺点：首页的加载速度慢
++ 缺点：首页的加载速度慢
 
-> ### vue三大核心:组件 路由 状态管理，路由控制页面的渲染，页面由组件组成，数据有vuex进行管理和改变。
++ 三大核心：组件 路由和状态管理，路由控制页面的渲染，页面由组件组成，数据由vuex进行管理和改变。
 
-```vus
-<div class="app">
-    <input v-model="one" type="text"/>+   /*v-model 指令 ，表单内部获取数据,它是表单上面的指定，双向数据绑定*/
-    <input v-model="two" type="text"/>=   /*表单外部用{{}}获取数据或者用v-text代替*/
-    <span v-text="result()"> </span>
-</div>
-</body>
-<script>
-    new Vue({
-        el:".app",  /*接管的范围*/
-        data:{       /*json格式，接收数据*/
-            one:0,
-            two:0
-        },
-        methods:{   /*methods存放操作逻辑，前面result（）*/
-            result(){
-                if(this.one>10){
-                    return this.one*1+this.two*1
-                }else{
-                    return this.one*1-this.two*1
-                }
-            }
-        },
-        computed:{   /*computed,动态变化的数据，前面result，前面修改数据，只会运行修改过的内容*/
-            result(){
-                if(this.one>10){
-                    return this.one*1+this.two*1
-                }else{
-                    return this.one*1-this.two*1
-                }
-            }
-        },
-        watch:{   /*json格式，手动去实时监控数据的变化 */
-            one(one,two){
-                this.result = this.one*1 + this.two*1  /*one修改后的值，two是修改后的值*/
-            },
-            two(one,two){
-                this.result = this.one*1 + this.two*1
-            }
-        }
-    })
-    
-    v-for 循环
-    v-on：click或者@click="add"  点击事件
-    v-show:开关的作用,true是返回display:block
-    @keydow.13  回车的意思
-    v-html
-    ：代表v-bind的意思
-    调用函数的三种方式：
-    	1.自调用
-    	2.直接调用
-    	3.点击事件调用
-    	eg：
-    	function aa(){}
-    		1.(function aa(){})()
-    		2.aa()
-    		3.div.onclick=aa
-    localStorage存放的数据类型是字符串
-    1.localStorage.aa = bb;	
-    2.localStorage.setItem("aa","cc")
-    3.localStorage.removeItem("aa","cc")
-    4.localStorage.clear()清除所有
-    JSON.stringify(value[, replacer [, space]])将对象、数组转换成字符串（系列化对象，将对象数据类型转化为数据类型）；
-    1.布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值；
-    2.undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）；
-    3.不可枚举的属性会被忽略；
-    4.
-    JSON .parse()将字符串转成json对象。
-    ///////自定义指令的创建//////////
-    Vue.directive("focus",{
-        inserted:function (val) {
-            console.log(val)    /*val中存储了所有使用这个指令的页面元素 */
-            val.focus();
-        }
-    });
-   
-```
++ 敏捷开发  模块化开发   组件化开发
 
-```vue
-<div class="table">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>姓名</th>
-                <th>年龄</th>
-            </tr>
-            <tr v-for="item in datas">
-                <td>
-                    {{item.id}}
-                </td>
-                <td>
-                    {{item.name}}
-                </td>
-                <td>
-                    {{item.age}}
-                </td>
-            </tr>
-        </table>
-        <div class="add">
-            id:<input type="text" v-model="id">
-            name:<input type="text" v-model="name">
-            age:<input type="text" v-model="age">
-            <button @click="add()">添加</button>
-        </div>
-    </div>
-    <script>
-        new Vue({
-            el:".table",
-            data:{
-                id:"",
-                name:"",
-                age:"",
-                datas:[
-                    {id:1,name:"张三",age:20},
-                    {id:2,name:"李四",age:20},
-                    {id:3,name:"王五",age:21},
-                    {id:4,name:"赵六",age:22}
-                ]
-            },
-            methods:{
-                add(){
-                    var obj ={};
-                    obj.id = this.id;
-                    obj.name = this.name;
-                    obj.age = this.age;
-                    this.datas.push(obj)
-                }
-            }
-        })
-    </script>
-```
++ 组件：完整的结构，逻辑，数据
 
-## vue数据双向绑定：
++ ```js
+  <div class="app">
+      <input v-model="one" type="text"/>+   /*v-model 指令 ，表单内部获取数据,它是表单上面的指定，双向数据绑定*/
+      <input v-model="two" type="text"/>=   /*表单外部用{{}}获取数据或者用v-text代替*/
+      <span v-text="result()"> </span>
+  </div>
+  </body>
+  <script>
+      new Vue({
+          el:".app",  /*接管的范围*/
+          data:{       /*json格式，接收数据*/
+              one:0,
+              two:0
+          },
+          methods:{   /*methods存放操作逻辑，前面result（）*/
+              result(){
+                  if(this.one>10){
+                      return this.one*1+this.two*1
+                  }else{
+                      return this.one*1-this.two*1
+                  }
+              }
+          },
+          computed:{   /*computed,动态变化的数据，前面result，前面修改数据，只会运行修改过的内容*/
+              result(){
+                  if(this.one>10){
+                      return this.one*1+this.two*1
+                  }else{
+                      return this.one*1-this.two*1
+                  }
+              }
+          },
+          watch:{   /*json格式，手动去实时监控数据的变化 */
+              one(one,two){
+                  this.result = this.one*1 + this.two*1  /*one修改后的值，two是修改后的值*/
+              },
+              two(one,two){
+                  this.result = this.one*1 + this.two*1
+              }
+          }
+      })
+  ```
+
+  ```js
+  v-for 循环
+      v-on：click或者@click="add"  点击事件
+      v-show:开关的作用,true是返回display:block
+      @keydow.13  回车的意思
+      v-html
+      ：代表v-bind的意思
+      调用函数的三种方式：
+      	1.自调用
+      	2.直接调用
+      	3.点击事件调用
+      	eg：
+      	function aa(){}
+      		1.(function aa(){})()
+      		2.aa()
+      		3.div.onclick=aa
+      localStorage存放的数据类型是字符串
+      1.localStorage.aa = bb;	
+      2.localStorage.setItem("aa","cc")
+      3.localStorage.removeItem("aa","cc")
+      4.localStorage.clear()清除所有
+      JSON.stringify(value[, replacer [, space]])将对象、数组转换成字符串（系列化对象，将对象数据类型转化为数据类型）；
+      1.布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值；
+      2.undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）；
+      3.不可枚举的属性会被忽略；
+      4.
+      JSON .parse()将字符串转成json对象。
+      ///////自定义指令的创建//////////
+      Vue.directive("focus",{
+          inserted:function (val) {
+              console.log(val)    /*val中存储了所有使用这个指令的页面元素 */
+              val.focus();
+          }
+      });
+     
+  ```
+
+  ```js
+  <div class="table">
+          <table>
+              <tr>
+                  <th>ID</th>
+                  <th>姓名</th>
+                  <th>年龄</th>
+              </tr>
+              <tr v-for="item in datas">
+                  <td>
+                      {{item.id}}
+                  </td>
+                  <td>
+                      {{item.name}}
+                  </td>
+                  <td>
+                      {{item.age}}
+                  </td>
+              </tr>
+          </table>
+          <div class="add">
+              id:<input type="text" v-model="id">
+              name:<input type="text" v-model="name">
+              age:<input type="text" v-model="age">
+              <button @click="add()">添加</button>
+          </div>
+      </div>
+      <script>
+          new Vue({
+              el:".table",
+              data:{
+                  id:"",
+                  name:"",
+                  age:"",
+                  datas:[
+                      {id:1,name:"张三",age:20},
+                      {id:2,name:"李四",age:20},
+                      {id:3,name:"王五",age:21},
+                      {id:4,name:"赵六",age:22}
+                  ]
+              },
+              methods:{
+                  add(){
+                      var obj ={};
+                      obj.id = this.id;
+                      obj.name = this.name;
+                      obj.age = this.age;
+                      this.datas.push(obj)
+                  }
+              }
+          })
+      </script>
+  ```
+
+  
+
+## 数据双向绑定：
 
 ```vue
 //  四个选项，两个方法 
@@ -162,12 +170,6 @@ var temp;
     obj.name=200
     console.log(obj.name)
 ```
-
-## 开发:
-
-> 敏捷开发  模块化开发   组件化开发
->
-> 组件：完整的结构，逻辑，数据
 
 ## 创建vue项目：
 
@@ -332,21 +334,21 @@ vue.prototype.abc=function("aa:"bb"){
 如果创建组件时使用驼峰命名，调用组件的时候需要将驼峰改为横线-写法
 ```
 
-### Vuex
+## Vuex
 
-- #### 什么是vuex？
+- ### 什么是vuex？
 
   - 它是应用程序开发的状态管理模式；
   - 它采用集中式存储管理应用的所有组件的状态；
   - 并以相应的规则保证状态以一种可预测的方式变化。
 
-- #### 什么是状态管理模式？
+- ### 什么是状态管理模式？
 
   - state:驱动应用的数据源。
   - view:以声明的方式将state映射到视图。、
   - actions:响应在view上的用户输入导致的状态变化。
 
-### Vuex的小实例：
+## Vuex的小实例：
 
 ```js
 1. 下载vuex的插件，使用命令npm install vuex --save;
@@ -364,9 +366,18 @@ const store = new Vuex.Store({    // 是对象的形式
 })
 4.在全局获取状态对象可使用this.$store.state.count;
 5.在全局方法触发状态变更可以使用this.$store.commit('increase',v);v是可以传入的数据。
-```
+6.引入vuex中的mapState函数。该辅助函数是帮助我们生成计算属性 
+import { mapState } from 'vuex'
+computed：mapState({
+    count:state => state.count,//使用箭头函数使代码更加简练
+    countAlias:'count',  // 该字符串参数’count'等同于state => state.count
+    countPlusLocalState （state）{
+    	return state.count+this.count  // 使用常规函数，可以使用’this‘的局部状态
+})
+7.
+	
 
-### 
+```
 
 ## element:
 
@@ -446,5 +457,22 @@ export default {
 <1> 自定义组件使用ref属性，通过ref值可获取到该自定义组件；
 
 <2> 普通HTML标签使用ref属性，通过ref值获取到的是该标签对应的DOM
+    
+    
 ```
 
+## Promise
+
+Promise:一套处理异步情况的方法。先创建一个promise对象来注册一个委托，其中包括委托成功和失败后的处理函数。然后基于这种表述方式，；来讲promise应用到各种异步处理的情况下。
+基本语法：var promise = getAsyncPromise('fileA.txt'); //创建promise对象
+	  promise.then(function(trsult){
+		// 成功时的处理函数
+	}）.catch(function(error){
+		// 失败时的处理函数
+	}）
+// 返回一个promise对象
+Promise.all ([promise1,promise2..])
+返回一个新的Promise对象，当该promise对象内的参数对象都成功的状态下才会触发成功，有一个失败则立即触发失败。
+
+Promise.race ([promise1,promise2..])
+当参数里的任意一个promise成功或失败后，该函数就会返回，并使用这个promise对象的值进行resolve或reject
