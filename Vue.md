@@ -1,4 +1,4 @@
-## VUE简介:
+##  VUE简介:
 
 + 缺点：首页的加载速度慢
 
@@ -476,3 +476,15 @@ Promise.all ([promise1,promise2..])
 
 Promise.race ([promise1,promise2..])
 当参数里的任意一个promise成功或失败后，该函数就会返回，并使用这个promise对象的值进行resolve或reject
+
+### 指令：
+
++ v-cloak: 解决网速缓慢时的加载问题；
++ v-text
++ v-html:可以解析html标签；
++ v-bind:可以绑定属性事件或者方法，可缩写为：；
++ v-on:它可以缩写为@；
+
+### 事件
+
++ blur: 当元素失去焦点时触发的事件。

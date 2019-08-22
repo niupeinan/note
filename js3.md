@@ -65,9 +65,10 @@ let obj=document.querySelectorAll("选择器");
 
   ```js
   obj.className="box"
-  obj.classList.add("box")  添加
-  obj.classList.remove("box")  删除
-  obj.classList.toggle("box")  切换
+  obj.classList.add("box")  添加新的类名，如已经存在，取消添加
+  obj.classList.remove("box")  删除已经存在的类名
+  obj.classList.toggle("box")  切换类名，即如果classList中存在给定的值，删除它，否则添加它。
+  obj.classList.contains("box") 如果classList中存在给定的值，删除它，否则添加它。
   obj.id="box"
   ```
 
@@ -225,9 +226,20 @@ document.body.appendChild(div);
 ### 字符串常用属性：（查找对应字符和字符编码）
 
 - charAt            字符串的位置
+
 - charCodeAt 转换为字符编码
+
 - Str.fromCharCode  利用字符编码找字符
+
 - _proto_指向prototype原型
+
+- test()   用于检验字符串是否符合某种规则
+
+  ```js
+  eg: var aa = /^[a-z]+$/
+  	var bb = "fdsjf33"
+      aa.test(bb)
+  ```
 
 ### 字符串查找下标：
 
@@ -241,6 +253,7 @@ document.body.appendChild(div);
 - str.substr(start,[length])
 - str.substring(start,end)  从start开始截取，到end前结束
 - str.slice(start,end)         数组的方法，同上
+- str.trim()  去除字符串的头尾空格，不会改变原始字符串
 
 ### 字符串大小写转换：
 
