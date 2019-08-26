@@ -545,26 +545,70 @@ Promise.race ([promise1,promise2..])
 
 + 子组件给父组件传值(通过事件传值i)
 
-  > 在父组件调用子组件的地方绑定了一个自定义事件@my-event = "getData“(注意不要加括号)"。在父组件定义的地方，实现定义函数getData。
-  >
   > ```js
+  > // 在父组件调用子组件的地方绑定了一个自定义事件@my-event = "getData“(注意不要加括号)"。在父组件定义的地方，实现定义函数getData。然后在子组件定义的地方，可以通过声明周期钩子函数或者组件内部自定义的函数去触发，通过this.$emit('父组件自定义绑定的事件'，’传递给父组件的值‘)。或者被动的触发点击事件，在method中写入对应的点检事件需要使用的方法。
   > methods: {
-  >     getData (data) {
-  >         // data即为组件传递过来的参数
-  >     }
+  >  getData (data) {
+  >      // data即为子组件传递过来的数据
+  >  }
   > }
+  > 
+  > mounted() {
+  >     this.$emit('my-event',`赚了两万块钱`)
+  > }
+  > 
   > ```
   >
-  > 
-  >
-  > ```js
-  > 
-  > ```
-  >
-  > 
+
+
+- 非父子组件之间的传值/兄弟组件之间传值（通过第三方传值（服务器））
 
   ```js
+  // 学名：利用中央时间总线传值
+  // A组件传值bus.$emit('事件名称1’，‘传递数据’）
+  // B组件接受bus.$on('事件名称1’，‘传递数据’）
+  const bus = new Vue()  // vue的第三方就是bus,$on：监听
   
+  
+  <div class='banner'>
+      <button @click='callmenu'>呼叫menu</button>
+  </div>
+  const banner = {
+      methods: {
+          callmenu() {
+              bus.$emit('call-menu-event','你好menu')
+          }
+      }
+  }
+  
+  const menu = {
+      mounter () {
+          bus.$on('call-menu-event',function(data) {
+              console.log(data)
+          })
+      }
+  }
+  ```
+
+- 子组件直接调用父组件的属性和方法
+
+  ```js
+  // 可以直接通过this.$parent.msg(msg代表属性或者方法)取父组件上的数据和方法。
+  // this.$parent.props
+  ```
+
+- 父组件可以直接调用子组件的属性和方法
+
+  ```js
+  添加一个标识：ref = "test"，即在父组件调用子组件的地方，添加一个ref属性，属性值任何定义。
+  // 可以通过this.$refs.test获取子组件，使用this.$refs.test.prop获取子组件的数据，可以通过this.$refs.test.fn()调用子组件的方法。
   ```
 
   
+
+### element:
+
+#### 	修改element-ui/view组件的样式：
+
+- 在需要更改的组件里新增一个style标签**【重点：不加scoped】**，然后直接获取class设置样式。（注意：为避免污染全局样式，最好不把它放在公共的css里面 ，给父级组件样式添加类名）
+- **使用  /deep/，**深度作用选择器
