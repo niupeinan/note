@@ -194,9 +194,13 @@ align-items:center;
 ## target：用来控制新页面中打开的位置
 
 - ?    _self：在本窗口打开（默认值）
-
 - _blank：在新窗口打开
 - title:标题
+
+### 阻止a标签页面刷新：
+
++ href = "javascript:void(0);"
++ href = "#",但是点击事见的函数需要返回false.
 
 ## 文本模型：
 

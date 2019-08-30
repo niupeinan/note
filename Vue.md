@@ -1,28 +1,38 @@
 ##  VUE简介:
 
++ 认识vue
+  + 是一套用于构建用户界面的渐进式框架
+  + 自底向上逐层应用
+  + 核心库只关心图层
+  + 易于与第三方库或者既有项目结合
+
 + 缺点：首页的加载速度慢
 
 + 三大核心：组件 路由和状态管理，路由控制页面的渲染，页面由组件组成，数据由vuex进行管理和改变。
 
 + 敏捷开发  模块化开发   组件化开发
 
++ 声明式渲染：Vue.js的核心是允许用一个简洁的模板语法来声明式地将数据渲染进DOM的系统。
+
 + 组件：完整的结构，逻辑，数据
 
 + ```js
-  <div class="app">
+  基础用法：
+  
+  <div id="app">
       <input v-model="one" type="text"/>+   /*v-model 指令 ，表单内部获取数据,它是表单上面的指定，双向数据绑定*/
       <input v-model="two" type="text"/>=   /*表单外部用{{}}获取数据或者用v-text代替*/
-      <span v-text="result()"> </span>
+      <span v-text="result()">{{one}} </span>  // 模板  		{{one}}:插值表达式
   </div>
   </body>
   <script>
       new Vue({
-          el:".app",  /*接管的范围*/
-          data:{       /*json格式，接收数据*/
+          el:"#app", // <div class="app"></div>我们称它为挂载点,表明接管的范围（即哪一段可以使用vue语法）
+          data:{       /*json格式，初始化定义的数据，可以通过vue语法显示到视图中*/
               one:0,
               two:0
           },
-          methods:{   /*methods存放操作逻辑，前面result（）*/
+          methods:{   /*存放自定义函数的集合，前面result（）*/
               result(){
                   if(this.one>10){
                       return this.one*1+this.two*1
@@ -31,7 +41,7 @@
                   }
               }
           },
-          computed:{   /*computed,动态变化的数据，前面result，前面修改数据，只会运行修改过的内容*/
+          computed:{   /*计算属性：现成的数据做出一些运算得到的结果*/
               result(){
                   if(this.one>10){
                       return this.one*1+this.two*1
@@ -46,6 +56,18 @@
               },
               two(one,two){
                   this.result = this.one*1 + this.two*1
+              },
+              created(){
+                  // vue生命周期钩子函数，请求数据，必须是函数。
+              },
+              components: {
+                  // 组件
+              },
+              directives: {
+                  // 自定义指令
+              },
+              filters: {
+                  // 过滤数据
               }
           }
       })
@@ -70,7 +92,7 @@
       localStorage存放的数据类型是字符串
       1.localStorage.aa = bb;	
       2.localStorage.setItem("aa","cc")
-      3.localStorage.removeItem("aa","cc")
+      3.localStorage.removeItem("aa")
       4.localStorage.clear()清除所有
       JSON.stringify(value[, replacer [, space]])将对象、数组转换成字符串（系列化对象，将对象数据类型转化为数据类型）；
       1.布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值；
@@ -480,14 +502,33 @@ Promise.race ([promise1,promise2..])
 ### 指令：
 
 + v-cloak: 解决网速缓慢时的加载问题；
+
 + v-text
+
 + v-html:可以解析html标签；
-+ v-bind:可以绑定属性事件或者方法，可缩写为：；
-+ v-on:它可以缩写为@；
+
++ v-bind:可以绑定属性事件或者方法，可缩写为：，可理解为js的表达式；
+
++ v-on:它可以缩写为@,意思是向所在的标签绑定事件；
+
++ v-model：数据双向绑定
+
++ v-if：直接将该标签从dom中移除
+
++ v-show：不会将该标签从dom中移除，只是display:none;
+
++ v-for: 使用时添加:key="item",可以提高效率。
+
+  ```js
+  v-for="(item, index) of list"  :key="item"（唯一表示符）
+  ```
+
 
 ### 事件:
 
 + blur: 当元素失去焦点时触发的事件。
++ click
++ keydown
 
 ### 组件:
 
@@ -546,7 +587,7 @@ Promise.race ([promise1,promise2..])
 + 子组件给父组件传值(通过事件传值i)
 
   > ```js
-  > // 在父组件调用子组件的地方绑定了一个自定义事件@my-event = "getData“(注意不要加括号)"。在父组件定义的地方，实现定义函数getData。然后在子组件定义的地方，可以通过声明周期钩子函数或者组件内部自定义的函数去触发，通过this.$emit('父组件自定义绑定的事件'，’传递给父组件的值‘)。或者被动的触发点击事件，在method中写入对应的点检事件需要使用的方法。
+  > // 在父组件调用子组件的地方绑定了一个自定义事件@my-event = "getData“(注意不要加括号)"。在父组件定义的地方，实现定义函数getData。然后在子组件定义的地方，可以通过声明周期钩子函数或者组件内部自定义的函数去触发，通过this.$emit('父组件自定义绑定的事件'，’传递给父组件的值‘)。或者被动的触发点击事件，在method中写入对应的点击事件需要使用的方法。
   > methods: {
   >  getData (data) {
   >      // data即为子组件传递过来的数据
@@ -582,8 +623,8 @@ Promise.race ([promise1,promise2..])
   }
   
   const menu = {
-      mounter () {
-          bus.$on('call-menu-event',function(data) {
+      mounted () {
+          bus.$on('call-menu-event',function(data) {  // 为了不影响this，此处使用箭头函数。
               console.log(data)
           })
       }
@@ -604,7 +645,15 @@ Promise.race ([promise1,promise2..])
   // 可以通过this.$refs.test获取子组件，使用this.$refs.test.prop获取子组件的数据，可以通过this.$refs.test.fn()调用子组件的方法。
   ```
 
-  
+- vue中的每个组件都是vue的实例。
+
+- props
+
+
+  - props是双向绑定的。
+  - 当父组件的属性变化时，将传导给子组件，但是反过来不会。
+  - 每次当父组件更新时，子组件的所有prop都会更新为最新值。
+  - 不要在子组件内部改变prop，否则会在控制台给出警告。
 
 ### element:
 
@@ -612,3 +661,7 @@ Promise.race ([promise1,promise2..])
 
 - 在需要更改的组件里新增一个style标签**【重点：不加scoped】**，然后直接获取class设置样式。（注意：为避免污染全局样式，最好不把它放在公共的css里面 ，给父级组件样式添加类名）
 - **使用  /deep/，**深度作用选择器
+
+#### 使用keyup事件：
+
+> + 使用input标签可以直接使用onkeyup事件，在vue中也可以直接使用@keyup事件，但是在element中使用keyup事件时，需要写成@keyup.native事件。

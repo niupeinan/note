@@ -410,6 +410,7 @@ box.removeAttribute("id");
   - offsetY  距离事件源Y轴偏移
   - screenX  距离屏幕X轴偏移
   - screenY 距离屏幕Y轴偏移
+  - `which`属性用于**返回触发当前事件时按下的键盘按键或鼠标按钮**。
 - 事件对象：用来保存事件触发时的信息 
   - w3c : 事件处理程序的形参中
   - ie:  window.event
@@ -417,6 +418,7 @@ box.removeAttribute("id");
   - onkeydown 键盘按下
   - onkeyup 键盘抬起  
   - onkeypress 键盘按下  （当按下功能键 ctrl shift delete esc 等不会触发）
+  - onpaste 事件在用户中粘贴文本时触发
 - 键盘事件对象常用属性;
   - keyCode 键盘码
   - ctrlKey 是否按下ctrl
