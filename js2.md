@@ -102,8 +102,14 @@ let arr=[1,2,3,4];
 let arr1=arr //传址
 let arr2=[];
 for(let i=1;i<arr.length;i++){
-  arr2[i]=arr[i];
-}			//浅拷贝   for(let item of arr){arr2.push(item)}遍历数组 for(let item in arr)遍历对象  item:下标
+  arr2[i]=arr[i]; //浅拷贝  
+}			 
+// 遍历数组
+for(let item of arr){arr2.push(item)}  // 返回数组里面的数值
+for(let item in arr) // 返回数组中数值对应的下标
+// 遍历对象
+for(let i in obj)  // 返回对象的属性名；在使用for-in循环之前，先检测确认该对象的值不是null或underfined。
+for(let i of obj)  // 浏览器报错
 // 深拷贝
 function deepCopy(p, c) {
 　　　　var c = c || {};
@@ -121,7 +127,7 @@ function deepCopy(p, c) {
 // 深拷贝
 function copy(arr){
     var obj=arr.constructor==Array?[]:{};
-　　//第二种方法 var obj=arr instanceof Array?[]:{}
+　　//第二种方法 var obj=arr instanceof Array?[]:{}；在监测一个引用类型值和构造函数时，instanceof操作符始终会返回true，当然如果使用instanceof操作符监测基本数据类型，返回的值始终都是false。
     for(var item in arr){
         if(typeof arr[item]==="object"){
             obj[item]=copy(arr[item]);
@@ -237,6 +243,7 @@ var++：先执行本行中的其他语句，再执行++。
   - 如果一个操作数值字符串，另一个操作数是数字，先尝试将字符串转换为数字，如果转换成功，按照数值进行比较大小，如果不成功，则返回false。
   - 1\==true ，0\==false；
   - undefined=null；
+  - 如果返回的值value是undefined或者null，!value返回的是true，!!value返回的是false。两个感叹号的作用就在于，如果明确设置了变量的值（非null/undifined/0/""等值),结果就会根据变量的实际值来返回，如果没有设置，结果就会返回false。
 
 ## 赋值运算符：
 
@@ -400,6 +407,23 @@ for(初始条件；终止条件；步进值){
 - 歩进值
 - 重复以上；直到不满足终止条件，退出循环体。
 
+### with语句：
+
+> with语句的作用是将代码的作用域设置到一个特定的对象当中。
+
+```js
+example: var aa = bb.cc;
+		var dd = bb.ee;
+        
+     with(bb) {
+         var aa = cc;
+         var dd = ee;
+     }
+// 严格模式下不允许使用with语句。	
+```
+
+
+
 ### while循环
 
 ```js
@@ -488,23 +512,51 @@ do{
 ## 增加删除：
 
 1. arr.push() 在数组之后插入元素
+
 2. arr.pop()  删除数组最后一位
+
 3. arr.unshift()  在数组之前插入
+
 4. arr.shift() 删除数组前面第一位
+
 5. arr.splice(下标)  删除某一个位置  eg:arr.splice(3,1," ");  //万能的删除和增加  ，返回的参数是删除后的值。
+
 6. arr.includes()   是否包含一个数，返回值boolean.
+
 7. arr.concat(); 连接多个数组
+
 8. arr.slice()  剪切
+
 9. arr.reverse()  取反
+
 10. arr.join(“-”) 将数组转换为字符串
+
 11. arr.sort((x,y)=>x-y)   console.log(arr)  //x-y为升序   y-x为降序
+
 12. arr.find((item)=>item>7(条件))  查找符合条件的第一个元素
+
 13. arr.findIndex 查找符合条件的第一个元素的下标 
+
 14. arr.some()  看数组里面是否有满足条件的值，有true，没就false
+
 15. arr.every() 全部满足true，否则false
+
 16. arr.filter() 返回一个筛选(过滤条件)后的新数组
+
 17. arr.foreach() 让数组中每一个元素都执行一个函数，不会影响原数组。
+
 18. arr.map() 让数组中每一个元素都执行一个函数，返回一个新数组。
+
+19. arr.indexOf()。
+
+    ```js
+    	arr.indexOf(‘orange') 输出 0 因为 ‘orange' 是数组的第 0 个元素，匹配到并返回下标。
+        arr.indexOf(‘o') 输出 -1 因为此方法不会在每一个元素的基础上再次执行 indexOf 匹配。
+        arr.indexOf(‘2016') 输出 1 因为此方法从头匹配直到匹配到时返回第一个数组元素的下表，而不是返回全部匹配的下标。
+        arr.indexOf(2016) 输出 -1 注意：这里不会做隐式类型转换。
+    ```
+
+    
 
 ## 二维数组：
 
@@ -590,18 +642,20 @@ document.write("</table>");
     函数体；
     [return 返回值；]
   }
+  // 无需指定函数的返回值，因为ECMAScript函数可以在任何时候返回任何值。
+  // 未指定返回值的函数返回的是一个特殊的undefined值。
   ```
 
 - 对象的方式
 
 ## 函数的调用：
 
-- 函数名+（）;   functionname（）;
+- 函数名+（）;   function name（）;
 - 自变量+（）;
 
 ### 参数：
 
-> 动态改变函数体的变量，使函数更加灵活。
+> 动态改变函数体的变量，使函数更加灵活。实际上，参数是函数的局部变量。
 
 ### 形参：
 
@@ -641,7 +695,7 @@ variable();
 
 ### arguments对象：
 
-- 用来接受参数的详细信息。
+- 用来接受参数的详细信息，他的长度是由传入参数的个数决定的。
 - 每声明一个函数，在其内部自动生成arguments对象。arguments对象只在函数内部起作用。
 - arguments[i]  arguments.length 遍历  类似数组但不是数组。
 

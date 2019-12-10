@@ -16,13 +16,15 @@
 
 + 组件：完整的结构，逻辑，数据
 
++ 任何复杂的业务逻辑都应该使用计算属性，但不是必须的。
+
 + ```js
   基础用法：
   
   <div id="app">
       <input v-model="one" type="text"/>+   /*v-model 指令 ，表单内部获取数据,它是表单上面的指定，双向数据绑定*/
       <input v-model="two" type="text"/>=   /*表单外部用{{}}获取数据或者用v-text代替*/
-      <span v-text="result()">{{one}} </span>  // 模板  		{{one}}:插值表达式
+      <span v-text="result()">{{one}} </span>  // 模板 		{{one}}:插值表达式
   </div>
   </body>
   <script>
@@ -41,7 +43,7 @@
                   }
               }
           },
-          computed:{   /*计算属性：现成的数据做出一些运算得到的结果*/
+          computed:{   /*计算属性：现成的数据做出一些运算得到的结果，它具有依赖性，依赖于原始数据*/
               result(){
                   if(this.one>10){
                       return this.one*1+this.two*1
@@ -50,7 +52,7 @@
                   }
               }
           },
-          watch:{   /*json格式，手动去实时监控数据的变化 */
+          watch:{   /*json格式，手动去实时监控数据的变化，观察和响应 Vue 实例上的数据变动，侦听属性是命令式的且重复的。 */
               one(one,two){
                   this.result = this.one*1 + this.two*1  /*one修改后的值，two是修改后的值*/
               },
@@ -171,7 +173,7 @@
 ```vue
 //  四个选项，两个方法 
 
-var temp;
+	var temp;
     var obj={};
     Object.defineProperty(obj,"name",{
         value:100,
@@ -216,13 +218,6 @@ vue init webpack project-name
 vue create project-name
 
 ```
-
-## export与export default区别：
-
-- export与export default均可用于导出常量、函数、文件、模块等 
-- 你可以在其它文件或模块中通过import+(常量 | 函数 | 文件 | 模块)名的方式，将其导入，以便能够对其进行使用 
-- 在一个文件或模块中，export、import可以有多个，export default仅有一个 
-- 通过export方式导出，在导入时要加{ }，export default则不需要 
 
 ## vue文件存放内容：
 
@@ -401,72 +396,6 @@ computed：mapState({
 
 ```
 
-## element:
-
-```vue
-注意点： <span v-if="data.type==1">文件夹：{{ node.label }}</span>
-        <span v-else>文件<a href="">{{ node.label }}</a></span>
-				<router-view to="/addcategory"></router-view>
-export default {
-
-        data() {
-            return {}
-
-    },
-        computed:{
-            data5(){
-                return  this.$store.state.menus
-            }
-        },
-        methods: {
-          append(data) {
-            const newChild = { id: id++, label: 'testtest', children: [] };
-            if (!data.children) {
-              this.$set(data, 'children', []);
-            }
-            data.children.push(newChild);
-          },
-
-          remove(node, data) {
-            const parent = node.parent;
-            const children = parent.data.children || parent.data;
-            const index = children.findIndex(d => d.id === data.id);
-            children.splice(index, 1);
-          },
-
-
-            submit(){
-              return this.$router.push("/addcategory")
-            }
-
-        }
-    }
-
-<template>
-    <div>
-        <input type="text" v-model="cname">
-        <el-radio v-model="type" label="1">文件夹</el-radio>
-        <el-radio v-model="type" label="2">文件</el-radio>
-        <el-button @click="temp()">提交</el-button>
-    </div>
-</template>
-<script>
-    export default {
-        data(){
-            return{
-                cname:"",
-                type:"1",
-            };
-        },
-        methods:{
-            temp(){
-                this.$store.state.menus.push({"type":this.type,"label":this.cname})
-            }
-        },
-    }
-</script>
-```
-
 ## ref属性：
 
 ```vue
@@ -505,13 +434,74 @@ Promise.race ([promise1,promise2..])
 
 + v-text
 
-+ v-html:可以解析html标签；
++ v-html:插值，可以解析html标签；
 
 + v-bind:可以绑定属性事件或者方法，可缩写为：，可理解为js的表达式；
 
 + v-on:它可以缩写为@,意思是向所在的标签绑定事件；
 
-+ v-model：数据双向绑定
+  ```js
+  绑定事件：
+   // 可以添加事件对象，也可以不添加，如果有需要则添加。比如@click="result",不添加括号，则在定义的方法中默认携带参数event，如果加括号，则需要传参数$event;
+  
+  js中：
+  // 阻止默认事件 event。preventDefault()
+  // 阻止冒泡 event.stopPropagation()
+  
+  vue中不需要使用事件对象也可以阻止冒泡和阻止默认事件
+  // v-on:click=''
+  // v-on:click.stop=''  阻止冒泡
+  // v-on:click.prevent=''  阻止默认事件 v-on:submit.prevent=''
+  总结： .stop和.prevent是事件修饰符
+  ```
+
++ v-model：数据双向绑定，表单的类型为text，url，tel，email，password，number.
+
+  ```js
+  // 只有一个多选框,表示开关
+  <input type="checkbox" v-model="flag"/>
+      
+      new Vue({
+      	data:{
+              flag:true;
+          }
+  	})
+  
+  // 存在多个多选框，表示多选
+  <input type="checkbox" v-model="name"/ value="aa">
+  <input type="checkbox" v-model="name"/ value="bb">
+  <input type="checkbox" v-model="name"/ value="cc">
+      
+      new Vue({
+      	data: {
+          	name:[]； // 代表选中的值
+      	}
+  	})
+  
+  // 单选，表示单选
+  <input type="radio" v-model="sex"/ value="boy">
+  <input type="radio" v-model="sex"/ value="girl">
+      
+      new Vue({
+      	data: {
+          	sex:""； // 代表选中的值
+      	}
+  	})
+  
+  // 下拉框
+  // 注意第一个选项iOS不能触发change事件，添加一个禁用的默认选项（请选择）
+  <select v-model="num">
+      <option disabled value="">请选择</option>
+      <option value='10'></option>
+  	<option value='20'></option>
+  </select>
+  
+  	new Vue({
+      	data: {
+          	num:""； // 代表选中的值
+      	}
+  	})
+  ```
 
 + v-if：直接将该标签从dom中移除
 
@@ -520,7 +510,16 @@ Promise.race ([promise1,promise2..])
 + v-for: 使用时添加:key="item",可以提高效率。
 
   ```js
-  v-for="(item, index) of list"  :key="item"（唯一表示符）
+  v-for="(item, index) of list"  :key="item"（唯一标识符）
+  
+  遍历数组：
+  v-for = 'item in/of list'   // 遍历为属性值
+  v-for = '(item,index) in/of list'  // index代表索引值
+  
+  遍历对象：
+  v-for = 'value in/of obj'  // 遍历为属性值
+  v-for = '(value,key) in/of obj' // key为属性，value为属性值
+  v-for = '(value,key,index) in/of obj' // key为属性，value为属性值，index为索引
   ```
 
 
@@ -529,6 +528,71 @@ Promise.race ([promise1,promise2..])
 + blur: 当元素失去焦点时触发的事件。
 + click
 + keydown
+
+### class与style绑定：
+
++ class
+
+  + v-bind: class 指令也可以与普通的class属性共存。
+
+  ```js
+  // 对象的语法规则
+  // 内联定义在模板中
+  <div :class="{ active: flag }">aaa</div>
+  
+  new Vue({
+      data: {
+          flag: true,
+      }
+  })
+  // 不内联定义在模板中
+  <div v-bind:class="classObject"></div>
+  data: {
+    classObject: {
+      active: true,
+      'text-danger': false
+    }
+  }
+  
+  // 数组的语法规则
+  <div :class="[ classa, classb ]">aaa</div>
+  new Vue({
+      data: {
+          classa: 'active',
+          classb: 'f'
+      }
+  })
+  ```
+
++ style
+
+  ```js
+  // 对象的语法规则
+  <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+  或者
+  <div v-bind:style="styleObject"></div>
+  data: {
+    activeColor: 'red',
+    fontSize: 30
+  }
+  
+  // 数组的语法规则
+  // v-bind:style 的数组语法可以将多个样式对象应用到同一个元素上：
+  <div v-bind:style="[baseStyles, overridingStyles]"></div>
+  ```
+
+  
+
+### 生命周期的钩子函数：
+
++ beforeCreate()：在实例初始化之后，数据观测(data observer，开始监控Data对象数据变化)和初始化事件(init event，Vue内部初始化事件)之前被调用。
++ created()：在实例已经创建完成之后被调用。实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，event事件回调。挂载阶段尚未开始，$el 属性不可见。（ajax数据请求）
++ beforeMount()：在挂载开始之前被调用。相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。
++ mounted()：在el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。此时模板中的html渲染到了html页面中，此时一般可以做一些Ajax操作。注意mounted只会执行一次。（dom操作/ajax数据请求/实例化）
++ beforeUpdate()：在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
++ updated()：在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。（dom操作/实例化）
++ beforeDestroy()：在实例销毁之前调用。实例仍然完全可用。
++ destroyed()：在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。（销毁对象/解除事件的绑定）
 
 ### 组件:
 
@@ -647,7 +711,6 @@ Promise.race ([promise1,promise2..])
 
 - vue中的每个组件都是vue的实例。
 
-- props
 
 
   - props是双向绑定的。
@@ -664,4 +727,158 @@ Promise.race ([promise1,promise2..])
 
 #### 使用keyup事件：
 
-> + 使用input标签可以直接使用onkeyup事件，在vue中也可以直接使用@keyup事件，但是在element中使用keyup事件时，需要写成@keyup.native事件。
+> + 使用input标签可以直接使用onkeyup事件，在vue中也可以直接使用@keyup。但是在element中使用keyup事件时，需要写成@keyup.native事件。
+> + 按键修饰符：@keyup.entre是回车时触发的事件，它属于按键修饰符；
+> + 系统修饰符：ctrl.alt 尽量不要和系统的组合按键冲突。
+> + .native 如果某一个时间并没有去执行，可以添加这个修饰符试一下。
+
+#### 实例：
+
+```js
+注意点： <span v-if="data.type==1">文件夹：{{ node.label }}</span>
+        <span v-else>文件<a href="">{{ node.label }}</a></span>
+				<router-view to="/addcategory"></router-view>
+export default {
+
+        data() {
+            return {}
+
+    },
+        computed:{
+            data5(){
+                return  this.$store.state.menus
+            }
+        },
+        methods: {
+          append(data) {
+            const newChild = { id: id++, label: 'testtest', children: [] };
+            if (!data.children) {
+              this.$set(data, 'children', []);
+            }
+            data.children.push(newChild);
+          },
+
+          remove(node, data) {
+            const parent = node.parent;
+            const children = parent.data.children || parent.data;
+            const index = children.findIndex(d => d.id === data.id);
+            children.splice(index, 1);
+          },
+
+
+            submit(){
+              return this.$router.push("/addcategory")
+            }
+
+        }
+    }
+
+<template>
+    <div>
+        <input type="text" v-model="cname">
+        <el-radio v-model="type" label="1">文件夹</el-radio>
+        <el-radio v-model="type" label="2">文件</el-radio>
+        <el-button @click="temp()">提交</el-button>
+    </div>
+</template>
+<script>
+    export default {
+        data(){
+            return{
+                cname:"",
+                type:"1",
+            };
+        },
+        methods:{
+            temp(){
+                this.$store.state.menus.push({"type":this.type,"label":this.cname})
+            }
+        },
+    }
+</script>
+```
+
+### vue报错：
+
+#### Uncaught TypeError:__WEBPACK_IMPORTED_MODULE_21_vee_validate__.a.addLocale is not a function
+
+```vue
+原因是因为vee-validate的版本问题，回退到2.0.0-rc.25就可以了。可以先卸载npm uninstall vee-validate，然后安装旧版版本 npm install vee-validate@2.0.0-rc.25，然后重新跑下项目就好了.
+```
+
+### vue零碎知识点：
+
+- @submit.prevent:  阻止时间默认提交。
+
+### 常用的集中import引入方式：
+
+> 引入第三方插件：
+
+```js
+import echarts from 'echarts'
+```
+
+> 引入工具类
+
+- 引入单个方法：
+
+  ```js 
+  import {axiosfetch} from './util'
+  
+  需要export导出：
+  export function axiosfetch(options){
+      
+  }
+  ```
+
+- 导入成组的方法：
+
+  ```js
+  import * as tools from './libs/tools'
+  
+  // 其中tools.js中有多个export方法，吧tools里所有的export的方法导入。
+  // vue中使用：
+  vue.prototype.$tools = tools;
+  直接使用this.$tools.method调用就可以。
+  ```
+
+- export和export  default区别：
+
+  ```js
+  export:
+  import {axiosfetch} from './util'
+  import {axiosfetch，post} from './util'
+  // 需要加花括号，可以一次导入多个也可以一次导入一个，但都要加括号
+  
+  export default:
+  import axiosfetch from './util'; 
+  //不需要加花括号 只能一个一个导入
+  ```
+
+  - export与export default均可用于导出常量、函数、文件、模块等 
+  - 你可以在其它文件或模块中通过import+(常量 | 函数 | 文件 | 模块)名的方式，将其导入，以便能够对其进行使用 
+  - 在一个文件或模块中，export、import可以有多个，export default仅有一个 
+  - 通过export方式导出，在导入时要加{ }，export default则不需要 
+
+- 导入css文件：
+
+  ```js
+  import 'iview/dist/styles/iview.css';
+  如果是在.vue文件中那么在外面套个style:
+  <style>
+   @import './test.css'; 
+  </style>
+  ```
+
+- 导入组件：
+
+  ```js
+  import name1 from './name1'
+  import name2 from './name2'
+  components:{
+      name1,
+      name2,
+  },
+  ```
+
+  

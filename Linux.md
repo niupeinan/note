@@ -1,4 +1,4 @@
-# d浏览器作用：
+# 浏览器作用：
 
 - 呈现内容       解析内容和样式（解析html和css）     -webkit-   
 - 实现交互逻辑    JavaScript引擎   v8引擎  解析js

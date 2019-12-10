@@ -3,7 +3,9 @@
 调用cookie
 引入request中的cookie字典对象即可
 
-    request.cookies['']
+```python
+request.cookies['']
+```
 ### 写入cookis:
 
 1需要导入

@@ -4,6 +4,10 @@
 
 - window .onload =function(){}  事件源.事件=事件处理函数
 
+- 优秀的移动端网站
+
+  - ### http://www.softcomplex.com/products/tigra_calendar/
+
 ## 获取元素：
 
 - 获取id名的元素
@@ -236,6 +240,7 @@ document.body.appendChild(div);
 - test()   用于检验字符串是否符合某种规则
 
   ```js
+  当一个对象被创建时，这个构造函数将会把它的属性prototype赋给新对象的内部属性__proto__。这个__proto__被这个对象用来查找它的属性。
   eg: var aa = /^[a-z]+$/
   	var bb = "fdsjf33"
       aa.test(bb)
@@ -243,7 +248,7 @@ document.body.appendChild(div);
 
 ### 字符串查找下标：
 
-- str.indexOf("")        从前往后，查找对应字符的下标，如果有，返回下标，没有返回-1
+- str.indexOf("", index)        从前往后，查找对应字符的下标，如果有，返回下标，没有返回-1,index代表开始检索的位置。
 - str.lastIndexOf("") 从后向前找，查找对应字符的下标，如果有，返回下标，没有返回-1
 - str.search("")  同第一个，区别是正则
 - str.match("")           正确返回数组，没找到null
@@ -353,7 +358,7 @@ getAttributeNode("属性名"）:返回属性节点，是一个对象
 ### 删除节点：
 
 ```js
-box.removechild(div)
+box.removeChild(div)
 ```
 
 ### 删除属性节点：
@@ -790,5 +795,28 @@ str=str.replace( /^\s*/, '');
 str=str.replace(/(\s*$)/g, ""); 
 ```
 
+### 点击弹出框中的元素关闭弹出框按钮：
 
+```js
+$(".layui-layer-close1").trigger('click');
+```
+
+### JavaScript的方法总结：
+
+- decodeURIComponent ()： 可对encodeURIComponent()函数编码URI进行解码。
+- encodeURIComponent():   可把字符串作为 URI 组件进行编码。 
+- escape(): 可对字符串进行编码。
+- unescape(): 可对escape() 编码的字符串进行解码。
+
+### H5的新特性：orientationchange
+
+```js
+window.onorientationchange = function() {
+    if(window.orientation==90 || window.orientation==-90) {
+        alert("横屏")
+    }else {
+        alert("没有横屏")
+    }
+}
+```
 
