@@ -179,7 +179,7 @@ NaN:not a number;本来期望返回数值的操作但并未返回数值的情况
 ### 颜色的生成：
 
 ```js
-取随机数 0~1之间的小数，不包括1；Math.floor 向下取整 Math.ceil 向上取整 math.pow x的y次幂
+取随机数 0~1之间的小数，不包括1；Math.floor 向下取整 Math.ceil 向上取整 Math.pow x的y次幂 Math.sqrt: 返回正确舍入的一个double值的正平方根.
  //随机生成颜色
 var r=Math.random()*255;
 	var g=Math.random()*255;
@@ -542,6 +542,15 @@ do{
 15. arr.every() 全部满足true，否则false
 
 16. arr.filter() 返回一个筛选(过滤条件)后的新数组
+
+    ```js
+    语法：Array.filter(function(currentValue, indedx, arr), thisValue)
+    其中，函数 function 为必须，数组中的每个元素都会执行这个函数。且如果返回值为 true，则该元素被保留；
+    函数的第一个参数 currentValue 也为必须，代表当前元素的值。
+    thisValue可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。如果省略了 thisValue ，"this" 的值为 "undefined"
+    ```
+
+    
 
 17. arr.foreach() 让数组中每一个元素都执行一个函数，不会影响原数组。
 

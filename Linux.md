@@ -326,7 +326,7 @@ sudo make install
 
 - 同上，并且运行bin/pycharm.sh    $ sudo sh pycharm/bin/pycharm.sh  
 - 破解
-  - 获得注册码，输入网址http://idea.lanyus.com
+  - 获得注册码，输入网址 http://idea.medeming.com/jet/ 
 - 修改host文件
   - 修改host文件   将0.0.0.0 account.jetbrains.com和0.0.0.0 www.jetbrains.com添加到/etc/hosts文件里面
   - 如果是window系统，host文件在C:\Windows\System32\drivers\etc\hosts下。

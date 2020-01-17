@@ -6,7 +6,7 @@
 > - 文档对象模型（DOM）
 > - 浏览器对象模型（BOM）
 
-#### ECMAScript：
+####  ECMAScript：
 
 > 它规定了下列组成部分
 >

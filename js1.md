@@ -207,6 +207,7 @@ align-items:center;
 
   ```css
   word-break:break-all;   //使非中日韩文本换行
+  word-wrap:break-wrap;   //换行，但是和上面的区别是它会使整个单词换行
   ```
 
 - ###  单行文本溢出:

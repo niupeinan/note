@@ -269,6 +269,13 @@ document.body.appendChild(div);
 
 - str.replace("山"，”陕“)；
 
+### 字符串批量生成：
+
+```js
+let str = "123";
+console.log(str.repeat(3));
+```
+
 ### 把字符串转换为数组：
 
 ```js
@@ -367,7 +374,11 @@ box.removeChild(div)
 box.removeAttribute("id");
 ```
 
+#### 删除自身：
 
+```js
+box.remove();
+```
 
 # 事件：
 
@@ -818,5 +829,31 @@ window.onorientationchange = function() {
         alert("没有横屏")
     }
 }
+```
+
+#### table标签固定表头兼容问题：
+
+```js
+function scrollHandle(e) {
+    	var transFormArr = ['transfrom', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'];
+        var transformOne = "";
+        var divStyle = document.createElement('div').style;
+        var scrollTop = this.scrollTop;
+        for (var i = 0; i < transFormArr.length; i++) {
+            if (transFormArr[i] in divStyle) {
+                transformOne = transFormArr[i];
+                break
+            }
+        }
+        this.querySelector('thead').style[transformOne] = 'translateY(' + scrollTop + 'px)';
+    }
+
+访问对象属性有两种方式，一种是点表示法，另一种是方括号法。如下：
+alert(person["name"]);
+alert(person.name);
+方括号的主要优点是可以通过变量访问属性；如下：
+let aa = "transform";
+div.style[aa] = "translate(0, 180px)";
+如果属性名中包含会导致语法错误的字符，或者属性名用的是关键字或保留字，也可以使用方括号表示。
 ```
 

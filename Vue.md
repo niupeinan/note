@@ -244,6 +244,8 @@ vue create project-name
 9. 安装完node之后，npm包含的很多依赖包是部署在国外的。所以我们要安装cnpm，cnpm是淘宝对npm的镜像服务器，这样依赖的包安装起来就快多了。
    安装命令为：npm install -g cnpm --registry=[https://registry.npm.taobao.org](https://registry.npm.taobao.org/)
 
+   C:\Users\Aorus>de_modules\cnpm\bin\cnpm
+   
     
 
 ## ajax解决跨域问题：
