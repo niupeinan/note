@@ -523,6 +523,12 @@ do{
 
 6. arr.includes()   是否包含一个数，返回值boolean.
 
+   ```js
+   语法： arr.includes(value, start)
+   value: 搜索的内容
+   start： 开始搜索的位置，可以为负数
+   ```
+
 7. arr.concat(); 连接多个数组
 
 8. arr.slice()  剪切
@@ -556,13 +562,16 @@ do{
 
 18. arr.map() 让数组中每一个元素都执行一个函数，返回一个新数组。
 
-19. arr.indexOf()。
+19. arr.indexOf()  用来查找某个元素的位置，如果不存在就返回-1 
 
     ```js
     	arr.indexOf(‘orange') 输出 0 因为 ‘orange' 是数组的第 0 个元素，匹配到并返回下标。
         arr.indexOf(‘o') 输出 -1 因为此方法不会在每一个元素的基础上再次执行 indexOf 匹配。
         arr.indexOf(‘2016') 输出 1 因为此方法从头匹配直到匹配到时返回第一个数组元素的下表，而不是返回全部匹配的下标。
         arr.indexOf(2016) 输出 -1 注意：这里不会做隐式类型转换。
+        
+        不足： 1.它会返回-1和元素的位置来表示是否包含，在定位方面是没问题，就是不够语义化。
+        	  2.不能判断是否有NaN的元素。includes方法可以。
     ```
 
     

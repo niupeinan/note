@@ -96,7 +96,8 @@
       2.localStorage.setItem("aa","cc")
       3.localStorage.removeItem("aa")
       4.localStorage.clear()清除所有
-      JSON.stringify(value[, replacer [, space]])将对象、数组转换成字符串（系列化对象，将对象数据类型转化为数据类型）；
+      5.localStorage.getItem("aa")
+      JSON.stringify(value[, replacer [, space]])将对象、数组转换成字符串（系列化对象，将对象数据类型转化为数据类型）； 可参考：https://www.cnblogs.com/rainheader/p/4608527.html
       1.布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值；
       2.undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）；
       3.不可枚举的属性会被忽略；
@@ -110,8 +111,8 @@
           }
       });
      
-  ```
-
+```
+  
   ```js
   <div class="table">
           <table>
@@ -164,8 +165,8 @@
               }
           })
       </script>
-  ```
-
+```
+  
   
 
 ## 数据双向绑定：
@@ -302,7 +303,7 @@ app.run(port=9000)
 
 代理：
 html:
-var ajax = new XMLHttpRequest();
+	var ajax = new XMLHttpRequest();
     ajax.onload = function(){
         console.log(ajax.response)
     };
@@ -327,7 +328,7 @@ def ajax():
 app.run()
 ```
 
-## this.$router.push.replace.go的区别：
+## this.$router.push,this.$router.replace,this.$router.go的区别：
 
 1.this.$router.push()
 
@@ -346,7 +347,7 @@ app.run()
 ```vue
 var obj = {}
 obj.install = function(Vue,params){
-vue.prototype.abc=function("aa:"bb"){
+vue.prototype.abc=function("aa":"bb"){
 	alert("params.aa")
 }
 }
@@ -364,7 +365,7 @@ vue.prototype.abc=function("aa:"bb"){
 - ### 什么是状态管理模式？
 
   - state:驱动应用的数据源。
-  - view:以声明的方式将state映射到视图。、
+  - view:以声明的方式将state映射到视图。
   - actions:响应在view上的用户输入导致的状态变化。
 
 ## Vuex的小实例：
@@ -416,9 +417,9 @@ computed：mapState({
 
 ## Promise:
 
-Promise:一套处理异步情况的方法。先创建一个promise对象来注册一个委托，其中包括委托成功和失败后的处理函数。然后基于这种表述方式，；来讲promise应用到各种异步处理的情况下。
+Promise:一套处理异步情况的方法。先创建一个promise对象来注册一个委托，其中包括委托成功和失败后的处理函数。然后基于这种表述方式，来讲promise应用到各种异步处理的情况下。
 基本语法：var promise = getAsyncPromise('fileA.txt'); //创建promise对象
-	  promise.then(function(trsult){
+	  promise.then(function(rsult){
 		// 成功时的处理函数
 	}）.catch(function(error){
 		// 失败时的处理函数

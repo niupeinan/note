@@ -237,6 +237,16 @@ document.body.appendChild(div);
 
 - _proto_指向prototype原型
 
+- includes()  判断字符串是否包含指定的子字符串，有则true，否则返回false
+
+  ```js
+  语法： str.includes(searchvalue, start)
+  searchvalue: 查找的字符串
+  start： 设置从哪个位置开始寻找，默认为0；
+  ```
+
+  
+
 - test()   用于检验字符串是否符合某种规则
 
   ```js
