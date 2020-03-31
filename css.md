@@ -105,6 +105,7 @@ both: 向前和向后填充模式都被应用。
 
 ```
 toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。
+Math.round() 四舍五入
 ```
 
 #### 局部表格放大缩小功能：
@@ -197,10 +198,9 @@ sticky元素效果完全受制于父级元素们。
 #### @media screen和@media的区别？
 
 ```css
-@media screen的css在打印设备里是无效的，而@media在打印设备是啥有效的。
+@media screen的css在打印设备里是无效的，而@media在打印设备是有效的。
 @media only screen and关键词解析：
     only: 限定某种设备。
-    screen 是媒体查询的中的已走过
     and 被称为关键字，其他关键字还包括not(排除某种设备）
     braille 盲文
     enbossed 盲文打印
@@ -322,5 +322,28 @@ sticky元素效果完全受制于父级元素们。
     border-bottom:200px solid green;
     border-left:200px solid transparent;
 }
+```
+
+#### overflow:
+
+```css
+// 使用overflow时，height必须是固定的；如果设置height： auto；滚动调试条失效。
+```
+
+#### placholder样式：
+
+```css
+::-webkit-input-placeholder{
+    color: #fff;        /* 使用webkit内核的浏览器 */
+}    
+:-moz-placeholder{
+    color: #fff;        /* Firefox版本4-18 */
+}                  
+::-moz-placeholder{
+    color: #fff;        /* Firefox版本19+ */
+}                  
+:-ms-input-placeholder{
+    color: #fff;        /* IE浏览器 */
+} 
 ```
 

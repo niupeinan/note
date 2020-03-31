@@ -111,6 +111,7 @@
           }
       });
      
+  ```
 ```
   
   ```js
@@ -166,7 +167,7 @@
           })
       </script>
 ```
-  
+
   
 
 ## 数据双向绑定：
@@ -727,6 +728,33 @@ Promise.race ([promise1,promise2..])
 - 在需要更改的组件里新增一个style标签**【重点：不加scoped】**，然后直接获取class设置样式。（注意：为避免污染全局样式，最好不把它放在公共的css里面 ，给父级组件样式添加类名）
 - **使用  /deep/，**深度作用选择器
 
+#### el-table组件隐藏某一列：
+
+```js
+使用v-show隐藏无效，需要使用v-if;
+this.$refs.multipleTable.store.states.selection // 获取选中行的数据
+```
+
+#### el-dialog组件使用时出现闪烁问题：
+
+```js
+原因： 是el-select中的图标的tansform属性导致；
+解决方法：1. 为el-dialog添加css:
+
+.el-dialog{
+  backface-visibility:hidden; //意为旋转元素不面向屏幕时隐藏
+  -webkit-backface-visibility:hidden;  /* Chrome 和 Safari */
+  -moz-backface-visibility:hidden;   /* Firefox */
+  -ms-backface-visibility:hidden;  /* Internet Explorer */
+}
+2. 为el-select添加css:
+.el-input__icon {
+  transition: none!important; // 测试无效
+}
+```
+
+
+
 #### 使用keyup事件：
 
 > + 使用input标签可以直接使用onkeyup事件，在vue中也可以直接使用@keyup。但是在element中使用keyup事件时，需要写成@keyup.native事件。
@@ -810,7 +838,7 @@ export default {
 
 ### vue零碎知识点：
 
-- @submit.prevent:  阻止时间默认提交。
+- @submit.prevent:  阻止事件默认提交。
 
 ### 常用的集中import引入方式：
 
@@ -883,4 +911,47 @@ import echarts from 'echarts'
   },
   ```
 
-  
+#### transition标签：
+
+```vue
+// 弹窗从右向左进入
+<transition name="moveR">
+
+</transition>
+
+<style lang="scss">
+
+  .moveR-enter-active,  .moveR-leave-active {
+    transition: all 0.3s linear;
+    transform: translateX(0);
+  }
+   .moveR-enter,  .moveR-leave {
+    transform: translateX(100%);
+  }
+   .moveR-leave-to{
+     transform: translateX(100%);
+   }
+</style>
+
+// 弹窗从左向右进入
+<transition name="moveL">
+
+</transition>
+
+<style lang="scss">
+
+     .moveL-enter-active,
+     .moveL-leave-active {
+         transition: all 0.3s linear;
+         transform: translateX(0%);
+     }
+    .moveL-enter,
+    .moveL-leave {
+        transform: translateX(-100%);
+    }
+    .moveL-leave-to {
+        transform: translateX(-100%);
+    }
+</style>
+```
+

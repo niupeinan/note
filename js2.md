@@ -179,7 +179,7 @@ NaN:not a number;本来期望返回数值的操作但并未返回数值的情况
 ### 颜色的生成：
 
 ```js
-取随机数 0~1之间的小数，不包括1；Math.floor 向下取整 Math.ceil 向上取整 Math.pow x的y次幂 Math.sqrt: 返回正确舍入的一个double值的正平方根.
+取随机数 0~1之间的小数，不包括1；Math.floor 向下取整 Math.ceil 向上取整 Math.pow x的y次幂 Math.sqrt: 返回四舍五入的一个double值的正平方根.
  //随机生成颜色
 var r=Math.random()*255;
 	var g=Math.random()*255;

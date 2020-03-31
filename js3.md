@@ -124,7 +124,7 @@ let obj=document.querySelectorAll("选择器");
 - prompt（） 输入框
 - confirm（）确定退出
 - close（）关闭页面
-- open（“url","","width=  height="） 打开页面
+- open（ (*URL,name,specs,replace* ） 打开页面
 - setInterval（fn,1000） 隔一定时间重复不断地执行一个函数（fn，ms）
 - clearInterval（t） 清除时间函数
 - setTimeout（）隔一定的时间 只执行一次函数
@@ -602,6 +602,12 @@ now.setUTCSconds()秒
 now.setUTCMilliseconds()毫秒
 
 now.getTime()   距离1970年1月一日零点零分零秒
+
+// 格式化时间转换为时间戳的三种方法
+1. let timeStamp1 = date.parse(new Date())
+2. let timestamp2 = (new Date()).valueOf();
+3. let timestamp3 = new Date().getTime();
+第一种：获取的时间戳是把毫秒改成000显示，第二种和第三种是获取了当前毫秒的时间戳。
 ```
 
 ```js
