@@ -955,3 +955,11 @@ import echarts from 'echarts'
 </style>
 ```
 
+#### dialog对话框被遮罩层遮挡问题：
+
+```vue
+:visible.sync="dialogFormVisible"
+:modal-append-to-body="dialogFormVisible"
+:append-to-body="dialogFormVisible"
+```
+
