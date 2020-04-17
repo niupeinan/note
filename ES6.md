@@ -42,7 +42,7 @@
   ```js
   var obj = {
       arr: [
-          'Yo.',
+          greet: 'Yo',
           {
               a: 1
           }

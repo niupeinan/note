@@ -93,6 +93,25 @@ prompt(提示文本，[默认值])；
 - 不用var关键字声明变量，也不赋值，会报错；
 - 先访问后声明变量，输出值为undefined,预解析（var .function）；
 
+### 暂时性死区：
+
+```js
+let 定义变量是有一个“特殊声明”的过程，JS 预解析的时候，先将定义的 let ,const “特殊声明”提前，类似“举手”，JS 引擎规定了同一个作用域，同一个变量只能被一次“举手”。
+```
+
+```js
+try{
+    console.log(a);// undefined
+    aa.c;
+}catch(e){
+    var a = 1;
+}
+console.log(a);// 1
+console.log(e);// Uncaught ReferenceError: e is not defined
+
+在 catch 里面定义的 a，被声明提前了。但是 catch 里面的 e 在外部无法访问。如果你认为 catch 是一个“函数作用域”，那么里面的 a 不应该被提升到最外层。实际上 catch 里面遵循的是块作用域。
+```
+
 # 数据类型：
 
 - 根据数据在内存中的存储位置划分，基本数据类型中存放在栈中，引用数据存放在堆中。（指针存放在栈中，内容存放在堆中）；

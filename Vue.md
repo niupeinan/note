@@ -54,7 +54,7 @@
           },
           watch:{   /*json格式，手动去实时监控数据的变化，观察和响应 Vue 实例上的数据变动，侦听属性是命令式的且重复的。 */
               one(one,two){
-                  this.result = this.one*1 + this.two*1  /*one修改后的值，two是修改后的值*/
+                  this.result = this.one*1 + this.two*1  /*one修改前的值，two是修改后的值*/
               },
               two(one,two){
                   this.result = this.one*1 + this.two*1
@@ -66,7 +66,7 @@
                   // 组件
               },
               directives: {
-                  // 自定义指令
+                  // 自定义指令，在自定义指令的钩子里面没有vue实例，this指向undefined；
               },
               filters: {
                   // 过滤数据
@@ -103,13 +103,6 @@
       3.不可枚举的属性会被忽略；
       4.
       JSON .parse()将字符串转成json对象。
-      ///////自定义指令的创建//////////
-      Vue.directive("focus",{
-          inserted:function (val) {
-              console.log(val)    /*val中存储了所有使用这个指令的页面元素 */
-              val.focus();
-          }
-      });
      
   ```
 ```
@@ -526,6 +519,39 @@ Promise.race ([promise1,promise2..])
   v-for = '(value,key,index) in/of obj' // key为属性，value为属性值，index为索引
   ```
 
+### 自定义指令：
+
+```js
+Vue.directive("focus",{
+    inserted:function (val) {
+        console.log(val)    /*val中存储了所有使用这个指令的页面元素 */
+        val.focus();
+    }
+});
+
+钩子函数： 
+bind：绑定时只执行一次的初始化操作
+inserted：被绑定元素插入父节点时调用
+update：被绑定元素所在的模板更新时调用
+componentUpdated：被绑定元素所在模板完成一次更新周期时调用
+unbind：指令与元素解绑是只执行一次的操作
+
+钩子区别：
+update 和 componentUpdated
+
+共同点：组件更新都会调用，update在componentUpdated之前
+不同点：
+update 组件更新前的状态
+componentUpdated 组件更新后的状态
+
+bind 和 inserted
+
+共同点： dom插入都会调用，bind在inserted之前
+不同点：
+bind 时父节点为 null
+inserted 时父节点存在。
+bind是在dom树绘制前调用，inserted在dom树绘制后调用
+```
 
 ### 事件:
 

@@ -2,20 +2,36 @@
 
 ```js
 title: {
-            text: '学生生源地来源分布图',
-            subtext: '模拟数据',
+    		id: '',       // 默认不指定。指定则可用于在 option 或者 API 中引用组件。
+            show: true,   // 布尔值，是否显示标题组件
+            text: '学生生源地来源分布图',   // 主标题，支持使用/n换行
+            link: 'www.baidu.com',      // 主标题文本超链接
+            target: '',                 // 指定窗口打开主标题超链接。'self' 当前窗口打开,'blank' 新窗口打开
+            subtext: '模拟数据',          // 副标题
             // x 设置水平安放位置，默认左对齐，可选值：'center' ¦ 'left' ¦ 'right' ¦ {number}（x坐标，单位px）
-            x: 'center',
+            left : 'center',
             // y 设置垂直安放位置，默认全图顶端，可选值：'top' ¦ 'bottom' ¦ 'center' ¦ {number}（y坐标，单位px）
-            y: 'top',
+            top: 'top',
+            right: '',
+            bottom: '',
             // itemGap设置主副标题纵向间隔，单位px，默认为10，
             itemGap: 30,
             backgroundColor: '#EEE',
             // 主标题文本样式设置
             textStyle: {
               fontSize: 26,
+              fontStyle = 'normal',
+              fontFamily = 'sans-serif',
               fontWeight: 'bolder',
               color: '#000080'
+              lineHeight: 56,
+              rich: {
+                  a: {
+                        // 没有设置 `lineHeight`，则 `lineHeight` 为 56
+                    }
+              },
+              width: 200，   // 文本宽度
+              height: 200,   // 文本高度
             },
             // 副标题文本样式设置
             subtextStyle: {
@@ -32,9 +48,9 @@ legend: {
             // orient 设置布局方式，默认水平布局，可选值：'horizontal'（水平） ¦ 'vertical'（垂直）
             orient: 'vertical',
             // x 设置水平安放位置，默认全图居中，可选值：'center' ¦ 'left' ¦ 'right' ¦ {number}（x坐标，单位px）
-            x: 'left',
+            left: 'left',
             // y 设置垂直安放位置，默认全图顶端，可选值：'top' ¦ 'bottom' ¦ 'center' ¦ {number}（y坐标，单位px）
-            y: 'center',
+            top: 'center',
             itemWidth: 24,   // 设置图例图形的宽
             itemHeight: 18,  // 设置图例图形的高
             textStyle: {
