@@ -538,7 +538,7 @@ do{
 
 4. arr.shift() 删除数组前面第一位
 
-5. arr.splice(下标)  删除某一个位置  eg:arr.splice(3,1," ");  //万能的删除和增加  ，返回的参数是删除后的值。
+5. arr.splice(下标)  删除某一个位置  eg:arr.splice(3,1," ");  //万能的删除和增加  ，返回的参数是删除后的值
 
 6. arr.includes()   是否包含一个数，返回值boolean.
 
@@ -548,9 +548,9 @@ do{
    start： 开始搜索的位置，可以为负数
    ```
 
-7. arr.concat(); 连接多个数组
+7. arr.concat(); 连接多个数组，返回一个新数组
 
-8. arr.slice()  剪切
+8. arr.slice()  剪切 ,可从已有的数组中返回选定的元素,返回一个新数组
 
 9. arr.reverse()  取反
 
@@ -593,7 +593,54 @@ do{
         	  2.不能判断是否有NaN的元素。includes方法可以。
     ```
 
-    
+
+20. arr.reduce() 
+
+    ```js
+    callback （执行数组中每个值的函数，包含四个参数）
+        previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））
+        currentValue （数组中当前被处理的元素）
+        index （当前元素在数组中的索引）
+        array （调用 reduce 的数组）
+    initialValue （作为第一次调用 callback 的第一个参数。）
+    ```
+
+
+#### 创建数组：
+
+```js
+// 先创建一个长为100的稀疏数组
+let temp = Object.keys(Array.apply(null, {length:100}))
+
+let arr = temp.map(item => {
+// 转为数字类型
+  return +temp;
+})
+// Array.keys拿到迭代器
+let arr = Array.from(Array(100).keys())
+
+// 方法与第一种类似 同样为字符数组 需要转化
+let temp = Object.keys(Array.from({length:100}))
+
+// es6扩展运算符
+let arr = [...Array(100).keys()]
+
+function replay(first=0, end=100, res=[]) {
+  if (first > end) {
+    return res
+  } else {
+    res.push(first)
+    return replay(first +1, end, res)
+  }
+}
+
+ // all不是一个数组，是一个类数组对象
+    let all = document.querySelectorAll('.a')
+    // 转为数组
+    let arr = Array.from(all)
+```
+
+
 
 ## 二维数组：
 

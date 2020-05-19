@@ -23,6 +23,22 @@
   
   <div id="app">
       <input v-model="one" type="text"/>+   /*v-model 指令 ，表单内部获取数据,它是表单上面的指定，双向数据绑定*/
+          // 单选框 静态数据
+          // 单独使用checked属性即可，eg: :checked='picked'.
+  		// 如果是组合使用来实现互斥选择的效果，就需要v-model配合value来使用。
+          
+          // 复选框 静态数据
+          // 单独使用时用v-model绑定一个布尔值
+          // 组合使用时也是使用v-model配合value来使用，v-model绑定的是一个数组形式的值
+           
+          // 下拉选择器  静态数据
+          // 单选：option标签是备选项，如果含有value属性，v-model就会优先匹配value的值，如果没有，就直接匹配<option>的text。
+          // 多选：添加multiple属性就可以多选啦。此时v-model绑定的是一个数组。
+          
+          // 输入框动态数据
+          // 单选框： v-model绑定的数据和value值相等
+          // 多选框： 添加两个属性分别是true-value和false-value，当选中是v-model绑定的数据和true-value相等，未勾选时是是v-model绑定的数据和true-value不相等。
+          // 下拉选择器： 
       <input v-model="two" type="text"/>=   /*表单外部用{{}}获取数据或者用v-text代替*/
       <span v-text="result()">{{one}} </span>  // 模板 		{{one}}:插值表达式
   </div>
@@ -58,7 +74,7 @@
               },
               two(one,two){
                   this.result = this.one*1 + this.two*1
-              },
+            },
               created(){
                   // vue生命周期钩子函数，请求数据，必须是函数。
               },
@@ -74,7 +90,7 @@
           }
       })
   ```
-
+  
   ```js
   v-for 循环
       v-on：click或者@click="add"  点击事件
@@ -106,8 +122,6 @@
      
   ```
 ```
-  
-  ```js
   <div class="table">
           <table>
               <tr>
@@ -856,11 +870,18 @@ export default {
 
 ### vue报错：
 
-#### Uncaught TypeError:__WEBPACK_IMPORTED_MODULE_21_vee_validate__.a.addLocale is not a function
-
 ```vue
+报错信息：Uncaught TypeError:__WEBPACK_IMPORTED_MODULE_21_vee_validate__.a.addLocale is not a function
+
+解决方法：
 原因是因为vee-validate的版本问题，回退到2.0.0-rc.25就可以了。可以先卸载npm uninstall vee-validate，然后安装旧版版本 npm install vee-validate@2.0.0-rc.25，然后重新跑下项目就好了.
+
+报错信息：vue.esm.js?efeb:628 [Vue warn]: Error in directive infinite-scroll inserted hook: "TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'."
+
+解决方法：在使用该指令的地方添加height和overflow属性。
 ```
+
+
 
 ### vue零碎知识点：
 
@@ -987,5 +1008,73 @@ import echarts from 'echarts'
 :visible.sync="dialogFormVisible"
 :modal-append-to-body="dialogFormVisible"
 :append-to-body="dialogFormVisible"
+```
+
+#### vue中变量的小技巧
+
+```js
+count = count || 1 如果count为真，则count为count，否则为1
+与它相反的是下面这种
+count = count&&1 如果count为真，则为1，否则为count
+
+也可以有其他的妙用
+count = x()||y() 如果x()为真，则返回结果，如果x()为假，则执行y()
+```
+
+#### Vue使用watch监听一个对象中的属性
+
+```vue
+watch的三种用法：
+watch: {
+    a: function (val, oldVal) {
+      console.log('new: %s, old: %s', val, oldVal)
+    },
+    // 方法名
+    b: 'someMethod',
+    // 选项的对象
+    c: {
+      handler: function (val, oldVal) { /* ... */ },
+      deep: true，
+      immediate: true
+    }
+  }
+
+queryData: {
+     name: '',
+     creator: '',
+     selectedStatus: '',
+     time: [],
+ },
+
+1. watch: {
+     queryData: {
+         handler: function() {
+            //do something
+         },
+         deep: true
+     }
+}
+
+2. watch: {
+     'queryData.name': {
+         handler: function() {
+            //do something
+         },
+     }
+}
+
+3. computed: {
+    getName: function() {
+    	return this.queryData.name
+    }
+}
+watch: {
+     getName: {
+         handler: function() {
+            //do something
+         },
+     }
+}
+
 ```
 

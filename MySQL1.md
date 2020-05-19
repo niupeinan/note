@@ -111,7 +111,7 @@ https://jingyan.baidu.com/article/495ba841b239e638b20ede4a.html
 
   ```mysql
   select  *  from  stu;
-  select * from stu limit 1;
+  select  *  from  stu limit 1;
   select  *  from  stu order by id asc;  #按照升序排列
   select  *  from  stu order by id desc;   #按照降序实现
   select  *  from  stu order by rand() limit 1;  #随机取一条信息
