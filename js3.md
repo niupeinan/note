@@ -873,3 +873,77 @@ div.style[aa] = "translate(0, 180px)";
 如果属性名中包含会导致语法错误的字符，或者属性名用的是关键字或保留字，也可以使用方括号表示。
 ```
 
+#### data-*的赋值与获取
+
+```js
+常用到的获取和赋值data-*属性值的方法有以下几种：
+1. data() 兼容ie8及以上；
+2. dataset 兼容ie10+;
+3. attr()
+
+<div id="tar" data-name="xxxx" data-age="23" data-h-y='hy'>1111</div>
+一. data() 方式
+$(document).on('click', '#tar', function() {
+    // 获取data-属性值
+     //如果是用data-h-y这种形式 多个连接符 使用驼峰的形式获取 hY
+	  console.log($(this).data()); //{age: 23,hY: "hy",name: "xxxx"}
+      console.log($(this).data('age')); //23
+      console.log($(this).data('hY'));//hy
+      console.log($(this).data('name'));//xxxx
+    
+    //设置data-属性值
+	  $(this).data('h-y','cat'); //cat
+      $(this).data('age','66'); //66
+      $(this).data('name','yyyy'); //yyyy
+      console.log($(this).data());
+})
+
+二. dataset方式
+$(document).on('click','#tar',function(){
+ //获取data-属性值 
+ //如果是用data-h-y这种形式 多个连接符 使用驼峰的形式获取 hY
+ //  获取data-属性值
+      console.log(this.dataset); //{age: 23,hY: "hy",name: "xxxx"}
+      console.log(this.dataset.age); //23
+      console.log(this.dataset.hY);//hy
+      console.log(this.dataset.name);//xxxx
+
+ //设置data-属性值
+      this.dataset.hY = 'cat'; //cat  
+      this.dataset.age = 66; //66  
+      this.dataset.name = 'yyyy'; //yyyy  
+      console.log(this.dataset);
+})
+
+三. attr()方式  需要获取/设置属性全称 data-xxxx
+$(document).on('click', '#tar', function () {
+//获取data-属性值 
+      console.log($(this).attr('data-name'))//xxxx
+//设置data-属性值
+      $(this).attr('data-name','yyyy')//yyyy
+})
+
+总结:
+1.dataset和data()可以直接获取data-后面的属性名直接获取和赋值属性，attr() 需要获取属性全称 data-xxxx进行属性的设置和获取。
+2.data()可以获取到所有的属性值 ，dataset无法获取到通过data()设置的属性值
+
+data-*兼容ie低版本获取HTML5自定义属性：
+function getDataset(ele){
+    if(ele.dataset){
+    	return ele.dataset;
+    }else{
+        var attrs = ele.attributes,//元素的属性集合
+        dataset = {}, name, matchStr;
+        for(var i = 0;i<attrs.length;i++){ //是否是data- 开头
+        	matchStr = attrs[i].name.match(/^data-(.+)/);
+        if(matchStr){ //data-auto-play 转成驼峰写法 autoPlay
+        	name = matchStr[1].replace(/-([\da-z])/gi,function(all,letter){
+            return letter.toUpperCase(); });
+            dataset[name] = attrs[i].value;
+       }
+    }
+    return dataset;
+    }
+}
+```
+

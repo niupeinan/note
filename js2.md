@@ -1,4 +1,4 @@
- 
+​	 
 
 # 引入js:
 
@@ -163,10 +163,27 @@ function copy(arr){
 ## 基本数据类型：
 
 - undefined
+
 - null
+
 - string
+
 - boolean
+
 - number
+
+  ```js
+  在JavaScript 规范中规定的数字直接量可以支持四种写法：十进制，二进制整数，八进制整数和十六进制整数。
+  十进制的 Number 可以带小数，小数点前后部分都可以省略，但是不能同时省略;
+  
+  比如：
+  let num1 = 1;
+  let num2 = .01;
+  let num3 = 1.01
+  let num4 = 1.
+  ```
+
+- symbol: ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值（但并不是字符串）。它是 JavaScript 语言的第七种数据类型，生成一个全局唯一的值。
 
 ## 引用数据类型：
 
@@ -556,7 +573,7 @@ do{
 
 10. arr.join(“-”) 将数组转换为字符串
 
-11. arr.sort((x,y)=>x-y)   console.log(arr)  //x-y为升序   y-x为降序
+11. arr.sort((x,y)=>x-y)   console.log(arr)  //x-y为升序   y-x为降序，返回一个新的数组。
 
 12. arr.find((item)=>item>7(条件))  查找符合条件的第一个元素
 
@@ -564,7 +581,7 @@ do{
 
 14. arr.some()  看数组里面是否有满足条件的值，有true，没就false
 
-15. arr.every() 全部满足true，否则false
+15. arr.every() 全部满足true，否则false； 方法使用指定函数检测数组中的所有元素。
 
 16. arr.filter() 返回一个筛选(过滤条件)后的新数组
 

@@ -347,6 +347,16 @@ sticky元素效果完全受制于父级元素们。
 } 
 ```
 
+#### 滚动条颜色：
+
+```css
+::-webkit-scrollbar{width:1px;}
+::-webkit-scrollbar-track{background-color: #030a14;}
+::-webkit-scrollbar-thumb{background-color: #030a14;}
+::-webkit-scrollbar-thumb:hover {background-color: #030a14}
+::-webkit-scrollbar-thumb:active {background-color: #030a14}
+```
+
 #### margin: 百分比形式
 
 ```css

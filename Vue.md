@@ -342,6 +342,18 @@ app.run()
 
 描述：跳转到不同的url，但这个方法会向history栈添加一个记录，点击后退会返回到上一个页面。
 
+params：/router1/:id ，/router1/123，/router1/789 ,**这里的id叫做params**
+
+query：/router1?id=123 ,/router1?id=456 ,**这里的id叫做query。**
+
+（1）： 传递参数 -- this.$router.push({path: ' 路由 ', query: {key: value}})
+
+​			   参数取值 -- this.$route.query.key	
+
+（2）：传递参数 -- this.$router.push({name: ' 路由的name ', params: {key: value}})
+
+​              参数取值 -- this.$route.params.key
+
 2.this.$router.replace()
 
 描述：同样是跳转到指定的url，但是这个方法不会向history里面添加新的记录，点击返回，会跳转到上上一个页面。上一个记录是不存在的。
@@ -716,7 +728,7 @@ bind是在dom树绘制前调用，inserted在dom树绘制后调用
   ```js
   // 学名：利用中央时间总线传值
   // A组件传值bus.$emit('事件名称1’，‘传递数据’）
-  // B组件接受bus.$on('事件名称1’，‘传递数据’）
+  // B组件接受bus.$on('事件名称1’，‘接受数据’）
   const bus = new Vue()  // vue的第三方就是bus,$on：监听
   
   
@@ -1076,5 +1088,108 @@ watch: {
      }
 }
 
+```
+
+#### vue在组件内使用路由参数
+
+```vue
+正确的做法是通过props解耦：
+const router = new VueRouter({
+	routes: [{
+		path: '/user/:id',
+		component: User,
+		props: true
+	}]
+})
+
+将路由的props属性设置为true后，组件内可以通过props接受到params参数：
+export default {
+	props: ['id'],
+	methods: {
+		getParamsId() {
+			return this.id
+		}
+	}
+}
+
+也可以通过函数模式返回props
+const router = new VueRouter({
+	routes: [{
+		path: '/user/:id',
+		component: User,
+		props: (router) => {
+			id: router.query.id
+		}
+	}]
+})
+```
+
+#### vue下@hook使用技巧
+
+```vue
+<!-- parent -->
+<parent-component>
+  <child-component @hook:mounted="handleChildMounted"></child-component>
+</parent-component>   // 直接使用@hook就可以在父组件中监听子组件中的钩子函数。
+```
+
+#### Vue加载组件的几种方式
+
+```vue
+//正常加载
+import index from '../pages/index.vue'
+import view from '../pages/view.vue'
+
+//懒加载
+const index = resolve => require(['../pages/index.vue'], resolve)
+const view = resolve => require(['../pages/view.vue'], resolve)
+
+//懒加载 - 按组
+const index = r => require.ensure([], () => r(require('../pages/index.vue')), 'group-index')
+const view = r => require.ensure([], () => r(require('../pages/view.vue')), 'group-view')
+
+// 懒加载 - 按组 import，基于ES6 import的特性
+const index = () => import('../pages/index.vue')
+const view = () => import('../pages/view.vue')
+
+动态加载组件的四种方式：
+
+1、使用import导入组件，可以获取到组件
+var name = 'system';
+var myComponent =() => import('../components/' + name + '.vue');
+var route={
+  name:name,
+  component:myComponent
+}
+2、使用import导入组件，直接将组件赋值给componet
+var name = 'system';
+var route={
+  name:name,
+  component :() => import('../components/' + name + '.vue');
+}
+3、使用require 导入组件，可以获取到组件
+var name = 'system';
+var myComponent = resolve => require.ensure([], () => resolve(require('../components/' + name + '.vue')));
+var route={
+  name:name,
+  component:myComponent
+}
+4、使用require 导入组件，直接将组件赋值给componet
+
+var name = 'system';
+var route={
+  name:name,
+  component(resolve) {
+    require(['../components/' + name + '.vue'], resolve)
+  }
+}
+```
+
+#### vue$set更新视图
+
+```vue
+this.$set(obj, key, value);
+在vue中，由于受JavaScript的限制，vue.js不能监听对象的添加和删除，也无法监听通过数组的length和索引修改本身的方法，因为在vue组件的初始化过程中，会调用getter和setter方法，所以该属性是必须存在data中，视图层才会响应数据的变化。
+解决问题： 1. 使用this.$set(obj, key, value)/vue.set(obj, key, value)
 ```
 
