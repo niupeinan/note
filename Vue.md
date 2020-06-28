@@ -1193,3 +1193,35 @@ this.$set(obj, key, value);
 解决问题： 1. 使用this.$set(obj, key, value)/vue.set(obj, key, value)
 ```
 
+#### vue兼容ie浏览器
+
+```vue
+1. npm install babel-polyfill -s
+2. 配置 polyfill，在根目录下新增babel.config.js文件：
+module.exports = {
+  presets: [
+    ['@vue/app', {
+        useBuiltIns: 'entry'
+    }]
+  ]
+}
+如果文件本来就存在，有数据的话，加上下面的内容就可以了
+module.exports = {
+  presets: [
+    ['
+    @vue/cli-plugin-babel/preset            //文件原始内容
+    ', {
+      useBuiltIns: 'entry'             //添加的内容
+    }]
+  ]
+}
+3.同时在入口文件（main.js）第一行添加
+import 'babel-polyfill'
+```
+
+#### sync作用：
+
+```vue
+vue 修饰符sync的功能是：当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定。
+```
+

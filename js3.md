@@ -947,3 +947,62 @@ function getDataset(ele){
 }
 ```
 
+#### apply，bind和call使用
+
+```js
+作用： 1.apply 、 call 、bind 三者都是用来改变函数的this对象的指向的；
+      2.apply 、 call 、bind 三者第一个参数都是this要指向的对象，也就是想指定的上下文；
+      3.apply 、 call 、bind 三者都可以利用后续参数传参；
+      4.bind 是返回对应函数，便于稍后调用；apply 、call 则是立即调用 
+
+区别：
+1. 接受参数的方式不一样。
+func.call(this, arg1, arg2);
+func.apply(this, [arg1, arg2])； 
+// this是指定的上下文,他可以是任何一个 JavaScript 对象(JavaScript 中一切皆对象)，call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里。
+
+数组之间追加：
+var array1 = [12 , "foo" , {name:"Joe"} , -2458]; 
+var array2 = ["Doe" , 555 , 100]; 
+Array.prototype.push.apply(array1, array2); 
+// array1 值为  [12 , "foo" , {name:"Joe"} , -2458 , "Doe" , 555 , 100] 
+
+获取数组中的最大值和最小值：
+var  numbers = [5, 458 , 120 , -215 ]; 
+var maxInNumbers = Math.max.apply(Math, numbers),   //458
+    maxInNumbers = Math.max.call(Math,5, 458 , 120 , -215); //458
+
+验证是否是数组（前提是toString()方法没有被重写过）：
+functionisArray(obj){ 
+    return Object.prototype.toString.call(obj) === '[object Array]' ;
+}
+
+类（伪）数组使用数组方法：
+var domNodes = Array.prototype.slice.call(document.getElementsByTagName("*"));
+
+bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。在Javascript中，多次 bind() 是无效的。
+
+example:
+var obj = {
+    x: 81,
+};
+ 
+var foo = {
+    getX: function() {
+        return this.x;
+    }
+}
+ 
+console.log(foo.getX.bind(obj)());  //81
+console.log(foo.getX.call(obj));    //81
+console.log(foo.getX.apply(obj));   //81
+```
+
+#### webpack之process.env.NODE_ENV详解
+
+```webpack
+// 在node中，有全局变量process表示的是当前的node进程。process.env包含着关于系统环境的信息。但是process.env中并不存在NODE_ENV这个东西。NODE_ENV是用户一个自定义的变量，在webpack中它的用途是判断生产环境或开发环境的依据的。
+
+参考： https://www.cnblogs.com/tugenhua0707/p/9780621.html
+```
+
