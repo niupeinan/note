@@ -183,7 +183,7 @@ function copy(arr){
   let num4 = 1.
   ```
 
-- symbol: ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值（但并不是字符串）。它是 JavaScript 语言的第七种数据类型，生成一个全局唯一的值。
+- Symbol: ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值（但并不是字符串）。它是 JavaScript 语言的第七种数据类型，生成一个全局唯一的值。
 
 ## 引用数据类型：
 

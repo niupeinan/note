@@ -294,3 +294,48 @@ fun.showA();
     ```
 
   + 由于对象总是继承其他对象的，所以可以在任意一个对象中，使用 super 关键字。
+
+### 详解promise、async和await的执行顺序
+
+```js
+这段promise、async和await代码，请问控制台打印的顺序？
+
+async function async1(){
+  console.log('async1 start')
+  await async2()
+  console.log('async1 end')
+}
+async function async2(){
+  console.log('async2')
+}
+console.log('script start')
+setTimeout(function(){
+  console.log('setTimeout') 
+},0)  
+async1();
+new Promise(function(resolve){
+  console.log('promise1')
+  resolve();
+}).then(function(){
+  console.log('promise2')
+})
+console.log('script end')
+
+结果：  在Chrome 66和node v10中
+script start
+async1 start
+async2
+promise1
+script end
+promise2
+async1 end
+setTimeout
+
+解析：
+考察的是js中的事件循环和回调队列：
+Promise优先于setTimeout宏任务。所以，setTimeout回调会在最后执行。
+Promise一旦被定义，就会立即执行。
+Promise的reject和resolve是异步执行的回调。所以，resolve()会被放到回调队列中，在主函数执行完和setTimeout前调用。
+await执行完后，会让出线程。async标记的函数会返回一个Promise对象
+```
+

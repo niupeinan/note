@@ -334,16 +334,16 @@ sticky元素效果完全受制于父级元素们。
 
 ```css
 ::-webkit-input-placeholder{
-    color: #fff;        /* 使用webkit内核的浏览器 */
+    color: #C0C4CC;        /* 使用webkit内核的浏览器 */
 }    
 :-moz-placeholder{
-    color: #fff;        /* Firefox版本4-18 */
+    color: #C0C4CC;        /* Firefox版本4-18 */
 }                  
 ::-moz-placeholder{
-    color: #fff;        /* Firefox版本19+ */
+    color: #C0C4CC;        /* Firefox版本19+ */
 }                  
 :-ms-input-placeholder{
-    color: #fff;        /* IE浏览器 */
+    color: #C0C4CC;        /* IE浏览器 */
 } 
 ```
 

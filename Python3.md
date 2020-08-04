@@ -71,7 +71,7 @@ request.agrs.get('参数名')
 
 ##### c)form：获取POST请求参数
 
-flask中，要获取get请求的参数，不是通过request.POST.get()，而是通过request.form.get()获取。
+flask中，要获取post请求的参数，不是通过request.POST.get()，而是通过request.form.get()获取。
 
 ```
 request.form.get('参数名')

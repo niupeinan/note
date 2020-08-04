@@ -726,7 +726,7 @@ bind是在dom树绘制前调用，inserted在dom树绘制后调用
 - 非父子组件之间的传值/兄弟组件之间传值（通过第三方传值（服务器））
 
   ```js
-  // 学名：利用中央时间总线传值
+  // 学名：利用中央事件总线传值
   // A组件传值bus.$emit('事件名称1’，‘传递数据’）
   // B组件接受bus.$on('事件名称1’，‘接受数据’）
   const bus = new Vue()  // vue的第三方就是bus,$on：监听
@@ -1223,5 +1223,21 @@ import 'babel-polyfill'
 
 ```vue
 vue 修饰符sync的功能是：当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定。
+```
+
+#### 登陆页type="password"是密码自动填充问题
+
+```vue
+参考网址：https://blog.csdn.net/weixin_43043994/article/details/97890856
+```
+
+#### Vue组件中方法的执行顺序：
+
+```js
+beforeCreate->
+inject、
+props、methods、data、computed、watch、
+provide
+created->
 ```
 
