@@ -117,7 +117,13 @@ fetch(url, {
 > 利用js异步的与数据进行交互
 
 ```ajax
-var ajax = new XMLHttpRequest()    创建对象
+兼容低版本的ie浏览器
+var ajax;
+if (window.XMLHttpRequest) {
+    ajax = new XMLHttpRequest();
+} else {
+    ajax = new ActiveXObject('Microsoft.XMLHTTP');
+}
 ajax.onreadystatechange=function(ev){   记录每一次的状态变化
 	if(ajax.readyState==4){
     iif(ajax.status==200){

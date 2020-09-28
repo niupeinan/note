@@ -594,7 +594,7 @@ do{
 
     
 
-17. arr.foreach() 让数组中每一个元素都执行一个函数，不会影响原数组。
+17. arr.() 让数组中每一个元素都执行一个函数，不会影响原数组。
 
 18. arr.map() 让数组中每一个元素都执行一个函数，返回一个新数组。
 
@@ -806,7 +806,7 @@ variable();
 
 - rest参数与arguments对象的区别：
   - rest接受多余实参，arguments接受所有的实参。
-  - rest是数组，能够使用数组的方法；`foreach(function(element){arr[arr.length]=element})`arguments对象是类似数组。
+  - rest是数组，能够使用数组的方法；`(function(element){arr[arr.length]=element})`arguments对象是类似数组。
 
 ## 参数默认值：
 

@@ -3,6 +3,8 @@ node.js vue.js
 
 shift+tab+delect:跳出当前页面(typora)
 
+XML有5个转义符: \&lt;\&gt;\&amp; \&quot;\&apos; 分别代表着<>& " '。
+
 ## 组成：
 
 1.ECMAscript
@@ -110,8 +112,6 @@ align-items:center;
 
   .recent-hours::-websit-scrolibar{height:0}去除滚动条  eg:.future ul::-webkit-scrollbar{
 	height: 0;
-
-
 
 ## 组成：
 

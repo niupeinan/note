@@ -211,6 +211,11 @@
 2.下载vuecli,可以使用命令npm install -g @vue/cli
 3.使用vue创建项目：vue create project-name
 4.运行项目：npm run serve
+
+npm下载cnpm
+npm config set registry https://registry.npm.taobao.org
+npm install -g cnpm
+输入cnpm -v 即可出现版本号
 ```
 
 ## vuecli知识点:
@@ -1239,5 +1244,99 @@ inject、
 props、methods、data、computed、watch、
 provide
 created->
+```
+
+#### h函数:
+
+```vue
+// @returns {VNode}
+createElement(
+  // {String | Object | Function}
+  // 一个 HTML 标签字符串，组件选项对象，或者一个返回值
+  // 类型为 String/Object 的函数，必要参数
+  'div',
+
+  // {Object}
+  // 一个包含模板相关属性的数据对象
+  // 这样，您可以在 template 中使用这些属性。可选参数。
+  {
+    // (详情见下一节)
+  },
+
+  // {String | Array}
+  // 子节点 (VNodes)，由 `createElement()` 构建而成，
+  // 或使用字符串来生成“文本节点”。可选参数。
+  [
+    '先写一些文字',
+    createElement('h1', '一则头条'),
+    createElement(MyComponent, {
+      props: {
+        someProp: 'foobar'
+      }
+    })
+  ]
+)
+
+例子：{
+      title: 'Name',
+      key: 'name',
+      render: (h, params) => {
+        return h('div', [
+          h('a',{
+              class: {
+                  'a-font-size': true
+              }
+          }, params.row.name),
+          h('p',{
+              class: {
+                  'p-margintb': true
+              }
+          }, '从 ' + params.row.gmtModified + ' 到 ' + params.row.endDate ),
+          h('p',{
+              class: {
+                  'p-marginb': true
+              }
+          },'负责人：'+ params.row.users.name)
+        ])
+      }
+    }
+
+渲然结果：
+<div>
+    <a class=“a-font-size">”Name"</a>
+    <p class="p-margintb">从2016年7月1日到2018年3月19日</p>
+    <p class=“p-marginb”>负责人：Frank</p>
+</div>
+```
+
+#### Vue/cli3脚手架下载静态文件问题
+
+将静态文件放置public下,再使用window.location.href。
+
+#### provided和inject的使用
+
+```js
+// 父组件里
+provide() {
+        return {
+            isManual: {
+                status : 'none',
+            }
+        }
+},
+ 
+// 改变provide里的对象值
+this._provided.isManual.status = '0';
+
+inject: ['isManual'],
+ 
+//子组件里打印 isManual
+console.log('isisManual-->', this.isManual);
+```
+
+#### show-overflow-tooltip宽度设置
+
+```vue
+.el-tooltip__popper{ max-width:80% }
 ```
 
